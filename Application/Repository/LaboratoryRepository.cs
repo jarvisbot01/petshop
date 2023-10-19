@@ -43,5 +43,21 @@ namespace Application.Repository
             var records = await query.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToListAsync();
             return (totalRecords, records);
         }
+
+        public async Task<IEnumerable<Laboratory>> Consulta2A()
+        {
+            var laboratories = await (
+                from l in _context.Laboratories
+                where l.Name.Contains("Mk")
+                select new Laboratory
+                {
+                    Name = l.Name,
+                    Address = l.Address,
+                    Phone = l.Phone,
+                    Medications = l.Medications
+                }
+            ).ToListAsync();
+            return laboratories;
+        }
     }
 }
