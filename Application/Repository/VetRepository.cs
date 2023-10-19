@@ -43,5 +43,22 @@ namespace Application.Repository
             var records = await query.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToListAsync();
             return (totalRecords, records);
         }
+
+        public async Task<IEnumerable<Vet>> Consulta1A()
+        {
+            var vets = await (
+                from v in _context.Vets
+                where v.Specialty.Contains("Cirujano vascular")
+                select new Vet
+                {
+                    Name = v.Name,
+                    Email = v.Email,
+                    Phone = v.Phone,
+                    Specialty = v.Specialty,
+                    Appointments = new List<Appointment>()
+                }
+            ).ToListAsync();
+            return vets;
+        }
     }
 }
