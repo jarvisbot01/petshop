@@ -8,5 +8,7 @@ namespace Api.Dtos
         public int BreedId { get; set; }
         public int SpeciesId { get; set; }
         public int OwnerId { get; set; }
+
+        public ICollection<AppointmentDto> Appointments { get; set; }
     }
 }

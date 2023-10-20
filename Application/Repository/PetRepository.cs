@@ -63,5 +63,25 @@ namespace Application.Repository
             ).ToListAsync();
             return pets;
         }
+
+        public async Task<IEnumerable<Pet>> Consulta6A()
+        {
+            var firstQuarterStart = new DateTime(2023, 1, 1, 0, 0, 0);
+            var firstQuarterEnd = new DateTime(2023, 3, 31, 23, 59, 59);
+
+            var pets = await _context.Pets
+                .Include(p => p.Appointments)
+                .Where(
+                    p =>
+                        p.Appointments.Any(
+                            a =>
+                                a.AppointmentDate >= firstQuarterStart
+                                && a.AppointmentDate <= firstQuarterEnd
+                                && a.Description == "Vacunacion"
+                        )
+                )
+                .ToListAsync();
+            return pets;
+        }
     }
 }
