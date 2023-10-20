@@ -10,5 +10,6 @@ namespace Api.Dtos
         public int OwnerId { get; set; }
 
         public ICollection<AppointmentDto> Appointments { get; set; }
+        public ICollection<SpeciesDto> Species { get; set; }
     }
 }

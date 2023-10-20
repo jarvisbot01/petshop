@@ -6,5 +6,6 @@ namespace Domain.Interfaces
     {
         Task<IEnumerable<Pet>> Consulta3A();
         Task<IEnumerable<Pet>> Consulta6A();
+        Task<IEnumerable<Pet>> Consulta1B();
     }
 }
