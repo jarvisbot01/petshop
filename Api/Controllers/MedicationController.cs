@@ -69,6 +69,16 @@ namespace Api.Controllers
             return _mapper.Map<MedicationDto>(medication);
         }
 
+        [HttpGet("consulta5A")]
+        [MapToApiVersion("1.0")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult<IEnumerable<MedicationDto>>> Consulta5A()
+        {
+            var medications = await _unitofwork.Medications.Consulta5A();
+            var dto = _mapper.Map<IEnumerable<MedicationDto>>(medications);
+            return Ok(dto);
+        }
+
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

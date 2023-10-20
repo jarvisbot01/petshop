@@ -2,5 +2,8 @@ using Domain.Entities;
 
 namespace Domain.Interfaces
 {
-    public interface IMedication : IGeneric<Medication> { }
+    public interface IMedication : IGeneric<Medication>
+    {
+        Task<IEnumerable<Medication>> Consulta5A();
+    }
 }

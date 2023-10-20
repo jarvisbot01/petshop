@@ -43,5 +43,11 @@ namespace Application.Repository
             var records = await query.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToListAsync();
             return (totalRecords, records);
         }
+
+        public async Task<IEnumerable<Medication>> Consulta5A()
+        {
+            var medications = await _context.Medications.Where(m => m.Price > 50000).ToListAsync();
+            return medications;
+        }
     }
 }
