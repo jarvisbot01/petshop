@@ -72,5 +72,31 @@ namespace Application.Repository
                 .ToListAsync();
             return ownersWithPets;
         }
+
+        public async Task<object> Consulta5B()
+        {
+            var query =
+                from p in _context.Owners
+                select new
+                {
+                    Nombre = p.Name,
+                    Email = p.Email,
+                    Telefono = p.Phone,
+                    Mascotas = (
+                        from m in _context.Pets
+                        join r in _context.Breeds on m.BreedId equals r.Id
+                        where r.Name == "Golden Retriever" && m.OwnerId == p.Id
+                        select new
+                        {
+                            NombreMascota = m.Name,
+                            FechaNacimiento = m.Birthdate,
+                            Raza = r.Name
+                        }
+                    ).ToList()
+                };
+
+            var result = await query.ToListAsync();
+            return result;
+        }
     }
 }
