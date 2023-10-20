@@ -43,5 +43,34 @@ namespace Application.Repository
             var records = await query.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToListAsync();
             return (totalRecords, records);
         }
+
+        public async Task<IEnumerable<Owner>> Consulta4A()
+        {
+            var ownersWithPets = await _context.Owners
+                .Include(owner => owner.Pets)
+                .Select(
+                    owner =>
+                        new Owner
+                        {
+                            Id = owner.Id,
+                            Name = owner.Name,
+                            Email = owner.Email,
+                            Phone = owner.Phone,
+                            Pets = owner.Pets
+                                .Select(
+                                    pet =>
+                                        new Pet
+                                        {
+                                            Id = pet.Id,
+                                            Name = pet.Name,
+                                            Birthdate = pet.Birthdate
+                                        }
+                                )
+                                .ToList()
+                        }
+                )
+                .ToListAsync();
+            return ownersWithPets;
+        }
     }
 }

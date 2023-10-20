@@ -67,6 +67,15 @@ namespace Api.Controllers
             return _mapper.Map<OwnerDto>(owners);
         }
 
+        [HttpGet("consulta4A")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult<IEnumerable<OwnerDto>>> Consulta4A()
+        {
+            var owners = await _unitofwork.Owners.Consulta4A();
+            var ownersDto = _mapper.Map<IEnumerable<OwnerDto>>(owners);
+            return Ok(ownersDto);
+        }
+
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
